@@ -1,0 +1,27 @@
+{
+  "name": "server-status",
+  "homepage": "https://github.com/giolf/server-status",
+  "description": "Web service that monitors in real time the resources of a server (CPU, RAM, HD)",
+  "main": "",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Giovanni Far"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.2",
+    "bootstrap": "^3.3.6",
+    "Chart.js": "^1.0.2",
+    "requirejs": "^2.2.0",
+    "jquery": "^2.2.2"
+  }
+}
