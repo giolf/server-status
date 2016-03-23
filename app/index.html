@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <title>Server status</title>
     <link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>
 
 <body>
+    <div ng-include src="'views/partials/header.html'"></div>
     <div class="container-fluid" ng-view=""></div>
     <script data-main="js/main.js" src="../bower_components/requirejs/require.js"></script>
 </body>
