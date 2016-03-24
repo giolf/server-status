@@ -9,3 +9,15 @@
     padding: 15px 0px 15px 0px;
     font-size: 18px;
 }
+
+.cpu-chart {
+    padding-top: 15px;
+}
+
+.panel-heading {
+    font-weight: bold;
+}
+
+.chart-wrapper {
+    width: 100%;
+}

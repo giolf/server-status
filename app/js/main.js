@@ -2,23 +2,26 @@ require.config({
     baseUrl: '../bower_components',
 
     paths: {
-        app: '../app/js/app',
+        appModule: '../app/js/app',
+        cpuChartModule: '../app/controllers/cpu-controller',
+        serverStatusModule: '../app/js/server-status',
         angular: 'angular/angular.min',
-        ngRoute: '../app/js/angular-route.min',
-        jQuery: 'jquery/dist/jquery.min'
+        ngRoute: '../app/resources/js/angular-route.min',
+        jQuery: 'jquery/dist/jquery.min',
+        chartJS: 'chartJS/Chart.min'
     },
 
     shim: {
         'ngRoute': {
           deps: ['angular']
         },
-        'app': {
+        'appModule': {
             deps: ['angular', 'ngRoute']
         }
     }
 });
 
-require(['app'], function() {
+require(['appModule'], function() {
     angular.bootstrap(document, ['app']);
 });
 

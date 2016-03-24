@@ -1,5 +1,5 @@
-define(function () {
-    var app = angular.module('app', ['ngRoute']);
+define(['serverStatusModule'], function () {
+    var app = angular.module('app', ['ngRoute', 'serverStatus']);
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
