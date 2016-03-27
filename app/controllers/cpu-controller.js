@@ -1,7 +1,7 @@
-define(['chartJS'], function(chart) {
-    var cpuChart = angular.module('cpuChart', []);
+define(['chartJS', 'serverRequestsModule'], function(chart) {
+    var cpuChart = angular.module('cpuChart', ['serverRequests']);
 
-    cpuChart.controller('cpuController', ['$scope', '$interval', function ($scope, $interval) {
+    cpuChart.controller('cpuController', ['$scope', '$interval', 'serverRequestsService', function ($scope, $interval, serverRequestsService) {
         var loopHandler = null;
         var cpuChart = null;
         var count = 0;
@@ -43,7 +43,7 @@ define(['chartJS'], function(chart) {
         };
 
         var cpuLoop = function() {
-            console.log("get current cpu value");
+            console.log(serverRequestsService.serverRequest());
         };
 
         $scope.init = function(start) {
