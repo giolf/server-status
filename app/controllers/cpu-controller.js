@@ -1,8 +1,8 @@
-define(['chartJS', 'serverRequestsModule'], function(chart) {
+define(['chartJS', 'serverRequestsModule'], function (chart) {
     var cpuChart = angular.module('cpuChart', ['serverRequests']);
 
-    cpuChart.controller('cpuController', ['$scope', '$interval', 'serverRequestsService',
-        function ($scope, $interval, serverRequestsService) {
+    cpuChart.controller('cpuController', ['$scope', '$interval', '$location', 'serverRequestsService',
+        function ($scope, $interval, $location, serverRequestsService) {
             var loopHandler = null;
             var cpuChart = null;
 
@@ -23,11 +23,11 @@ define(['chartJS', 'serverRequestsModule'], function(chart) {
 
                 var options = {
                     responsive: true,
-                    maintainAspectRatio: true
-                    // scaleOverride : true,
-                    // scaleSteps : 10,
-                    // scaleStepWidth : 10,
-                    // scaleStartValue : 0
+                    maintainAspectRatio: true,
+                    scaleOverride: true,
+                    scaleSteps: 10,
+                    scaleStepWidth: 10,
+                    scaleStartValue: 0
                 };
 
                 var CpuCanvas = angular.element(
@@ -38,29 +38,38 @@ define(['chartJS', 'serverRequestsModule'], function(chart) {
                     .Line(data, options);
             };
 
-            var getCurrentCpuValue = function() {
-
-            };
-
-            var cpuLoop = function() {
-                var promise = serverRequestsService
+            var getCurrentCpuValue = function () {
+                return serverRequestsService
                     .request("service=usageCPU");
-
-                promise.then(function(data) {
-                    console.log(data);
-                }) ;
             };
 
-            $scope.init = function(start) {
-                if (start) {
-                    setupCpuChart();
-                    loopHandler = $interval(cpuLoop, 1);
-                }
-            }
+            var setCurrentCpuValue = function (data) {
+                cpuChart.addData(
+                    [data[0] + data[1] + data[2]],
+                    "re"
+                );
+            };
 
-            $scope.stop = function() {
+            var cpuLoop = function () {
+                if ($location.path() == "/") {
+                    getCurrentCpuValue().then(
+                        function (data) {
+                            setCurrentCpuValue(data);
+                        }
+                    );
+                }
+                else
+                    stop();
+            };
+
+            var stop = function () {
                 $interval.cancel(loopHandler);
-            }
+            };
+
+            $scope.init = function () {
+                setupCpuChart();
+                loopHandler = $interval(cpuLoop, 3000);
+            };
         }
     ]);
 });

@@ -3,12 +3,12 @@ define([], function () {
 
     serverRequests.service('serverRequestsService', ['$http', '$q', function ($http, $q) {
         this.request = function (param) {
-            var serverAddress = "http://192.168.1.123/status-server/client.php";
+            var serverAddress = "http://192.168.0.109/status-server/client.php";
             var deferred = $q.defer();
             
             $http.get(serverAddress + '?' + param).then(
-                function success(data) {
-                    deferred.resolve(data);
+                function success(objData) {
+                    deferred.resolve(objData.data);
                 },
                 function error(error) {
                     deferred.reject(error);
