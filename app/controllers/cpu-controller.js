@@ -31,13 +31,20 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                 var options = {
                     responsive: true,
                     maintainAspectRatio: true,
-                    //scaleShowVerticalLines: false,
+                    scaleShowVerticalLines: false,
                     scaleLabel: "<%=value%> %",
                     scaleOverride: true,
                     scaleSteps: 5,
                     scaleStepWidth: 20,
                     scaleStartValue: 0
                 };
+
+                getCpuInfo().then(
+                    function (data) {
+                        $scope.modelCPU = data[0];
+                        $scope.numCores = data[1];
+                    }
+                );
 
                 var CpuCanvas = angular.element(
                     document.querySelector('#cpu-chart')
@@ -47,7 +54,12 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     .Line(data, options);
             };
 
-            var getCurrentCpuValue = function () {
+            var getCpuInfo = function() {
+                return serverRequestsService.
+                    request("service=infoCPU");
+            }
+
+            var getCurrentCpuValues = function () {
                 return serverRequestsService
                     .request("service=usageCPU");
             };
@@ -58,13 +70,13 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
 
                 cpuChart.addData(
                     [data[0] + data[1] + data[2]],
-                    $filter('date')(new Date(),'hh:mm:ss')
+                    $filter('date')(new Date(),'HH:mm:ss')
                 );
             };
 
             var cpuLoop = function () {
                 if ($location.path() == "/") {
-                    getCurrentCpuValue().then(
+                    getCurrentCpuValues().then(
                         function (data) {
                             setCurrentCpuValue(data);
                         }
