@@ -1,11 +1,18 @@
 define(['chartJS', 'serverRequestsModule'], function (chart) {
     var cpuChart = angular.module('cpuChart', ['serverRequests']);
 
-    cpuChart.controller('cpuController', ['$scope', '$interval', '$location', 'serverRequestsService',
-        function ($scope, $interval, $location, serverRequestsService) {
+    cpuChart.controller('cpuController', [
+        '$scope', '$interval', '$location', '$filter', 'serverRequestsService',
+        function ($scope, $interval, $location, $filter, serverRequestsService) {
+            // private state
             var loopHandler = null;
             var cpuChart = null;
 
+            //public state
+            $scope.modelCPU = null;
+            $scope.numCores = null;
+
+            // private methods
             var setupCpuChart = function () {
                 var data = {
                     labels: [],
@@ -24,9 +31,11 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                 var options = {
                     responsive: true,
                     maintainAspectRatio: true,
+                    //scaleShowVerticalLines: false,
+                    scaleLabel: "<%=value%> %",
                     scaleOverride: true,
-                    scaleSteps: 10,
-                    scaleStepWidth: 10,
+                    scaleSteps: 5,
+                    scaleStepWidth: 20,
                     scaleStartValue: 0
                 };
 
@@ -44,9 +53,12 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
             };
 
             var setCurrentCpuValue = function (data) {
+                if (cpuChart.datasets[0].points.length > 10)
+                    cpuChart.removeData();
+
                 cpuChart.addData(
                     [data[0] + data[1] + data[2]],
-                    "re"
+                    $filter('date')(new Date(),'hh:mm:ss')
                 );
             };
 
@@ -66,6 +78,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                 $interval.cancel(loopHandler);
             };
 
+            // public method
             $scope.init = function () {
                 setupCpuChart();
                 loopHandler = $interval(cpuLoop, 3000);
