@@ -4,6 +4,7 @@ require.config({
     paths: {
         appModule: '../app/js/app',
         cpuChartModule: '../app/controllers/cpu-controller',
+        ramChartModule: '../app/controllers/ram-controller',
         serverStatusModule: '../app/js/server-status',
         serverRequestsModule: '../app/services/server-requests',
         angular: 'angular/angular.min',

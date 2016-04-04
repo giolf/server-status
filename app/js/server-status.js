@@ -1,3 +1,3 @@
-define(['cpuChartModule'], function() {
-    var serverStatus = angular.module('serverStatus', ['cpuChart']);
+define(['cpuChartModule', 'ramChartModule'], function() {
+    var serverStatus = angular.module('serverStatus', ['cpuChart', 'ramChart']);
 });

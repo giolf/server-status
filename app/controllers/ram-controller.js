@@ -1,23 +1,24 @@
-define(['chartJS', 'serverRequestsModule'], function (chart) {
-    var cpuChart = angular.module('cpuChart', ['serverRequests']);
+define(['chartJS', 'serverRequestsModule'], function(chart) {
+    var ramChart = angular.module('ramChart', ['serverRequests']);
 
-    cpuChart.controller('cpuController', [
+    ramChart.controller('ramController', [
         '$scope', '$interval', '$location', '$filter', 'serverRequestsService',
         function ($scope, $interval, $location, $filter, serverRequestsService) {
             // private state
             var loopHandler = null;
-            var cpuChart = null;
 
-            //public state
-            $scope.modelCPU = null;
-            $scope.numCores = null;
+            // public state
+            $scope.totalRAM = null;
+            $scope.currentRAM = null;
+            $scope.freeRAM = null;
+            $scope.percRAM = null;
 
             // private methods
-            var setupCpuChart = function () {
+            var setupRamChart = function() {
                 var data = {
                     labels: [],
                     datasets: [{
-                        label: "CPU Chart",
+                        label: "RAM Chart",
                         fillColor: "rgba(220,220,220,0.2)",
                         strokeColor: "rgba(220,220,220,1)",
                         pointColor: "rgba(220,220,220,1)",
@@ -39,46 +40,38 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     scaleStartValue: 0
                 };
 
-                getCpuInfo().then(
-                    function (data) {
-                        $scope.modelCPU = data[0];
-                        $scope.numCores = data[1];
-                    }
-                );
-
-                var cpuCanvas = angular.element(
-                    document.querySelector('#cpu-chart')
+                var ramCanvas = angular.element(
+                    document.querySelector('#ram-chart')
                 )[0].getContext("2d");
 
-                cpuChart = new Chart(cpuCanvas)
+                ramChart = new Chart(ramCanvas)
                     .Line(data, options);
             };
 
-            var getCpuInfo = function() {
-                return serverRequestsService.
-                    request("service=infoCPU");
-            }
-
-            var getCurrentCpuValues = function () {
+            var getCurrentRamValues = function () {
                 return serverRequestsService
-                    .request("service=usageCPU");
+                    .request("service=usageRAM");
             };
 
-            var setCurrentCpuValue = function (data) {
-                if (cpuChart.datasets[0].points.length > 10)
-                    cpuChart.removeData();
+            var setCurrentRamValue = function (data) {
+                if (ramChart.datasets[0].points.length > 10)
+                    ramChart.removeData();
 
-                cpuChart.addData(
-                    [data[0] + data[1] + data[2]],
+                $scope.totalRAM = data[0] + " MB";
+                $scope.currentRAM = data[1] + " MB";
+                $scope.freeRAM = data[2] + " MB";
+                $scope.percRAM = data[3];
+                ramChart.addData(
+                    [$filter('number')(100/ data[0] * data[1], 1)],
                     $filter('date')(new Date(),'HH:mm:ss')
                 );
             };
 
-            var cpuLoop = function () {
+            var ramLoop = function () {
                 if ($location.path() == "/") {
-                    getCurrentCpuValues().then(
+                    getCurrentRamValues().then(
                         function (data) {
-                            setCurrentCpuValue(data);
+                            setCurrentRamValue(data);
                         }
                     );
                 }
@@ -92,8 +85,8 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
 
             // public method
             $scope.init = function () {
-                setupCpuChart();
-                loopHandler = $interval(cpuLoop, 3000);
+                setupRamChart();
+                loopHandler = $interval(ramLoop, 3000);
             };
         }
     ]);

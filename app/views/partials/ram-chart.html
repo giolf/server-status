@@ -1,0 +1,19 @@
+<div class="panel panel-default" ng-controller="ramController">
+    <div class="panel-heading">Utilizzo RAM</div>
+    <div class="panel-body">
+        <div class="chart-wrapper">
+            <canvas id="ram-chart" data-ng-init="init()"></canvas>
+        </div>
+        <table class="table-serverstatus-chart table">
+            <tbody>
+                <tr><th scope="row">Totale</th>
+                    <td class="text-right">{{ totalRAM }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Corrente</th>
+                    <td class="text-right">{{ currentRAM }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
