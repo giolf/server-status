@@ -5,6 +5,9 @@
   "license": "GPL",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-contrib-requirejs": "^1.0.0"
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "time-grunt": "^1.3.0"
   }
 }

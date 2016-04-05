@@ -1,16 +1,16 @@
 require.config({
-    baseUrl: '../bower_components',
+    baseUrl: '../app',
 
     paths: {
-        appModule: '../app/js/app',
-        cpuChartModule: '../app/controllers/cpu-controller',
-        ramChartModule: '../app/controllers/ram-controller',
-        serverStatusModule: '../app/js/server-status',
-        serverRequestsModule: '../app/services/server-requests',
-        angular: 'angular/angular.min',
+        appModule: 'js/app',
+        cpuChartModule: 'controllers/cpu-controller',
+        ramChartModule: 'controllers/ram-controller',
+        serverStatusModule: 'js/server-status',
+        serverRequestsModule: 'services/server-requests',
+        angular: '../bower_components/angular/angular.min',
         ngRoute: '../app/resources/js/angular-route.min',
         jQuery: 'jquery/dist/jquery.min',
-        chartJS: 'chartJS/Chart.min'
+        chartJS: '../bower_components/chartJS/Chart.min'
     },
 
     shim: {
