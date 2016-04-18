@@ -1,0 +1,24 @@
+<div class="panel panel-default" ng-controller="hdController">
+    <div class="panel-heading">Utilizzo HD</div>
+    <div class="panel-body">
+        <div class="chart-wrapper">
+            <canvas id="hd-chart" data-ng-init="init(3000)"></canvas>
+        </div>
+        <table class="table-serverstatus-chart table">
+            <tbody>
+            <tr>
+                <th scope="row">Totale</th>
+                <td class="text-right">{{ total }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Utilizzato</th>
+                <td class="text-right">{{ current }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Libero</th>
+                <td class="text-right">{{ remain }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

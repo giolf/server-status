@@ -8,7 +8,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
             var loopHandler = null;
             var cpuChart = null;
 
-            //public state
+            // public state
             $scope.modelCPU = null;
             $scope.numCores = null;
 
@@ -64,7 +64,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     .request("service=usageCPU");
             };
 
-            var setCurrentCpuValue = function (data) {
+            var setCurrentCpuValues = function (data) {
                 if (cpuChart.datasets[0].points.length > 10)
                     cpuChart.removeData();
 
@@ -78,7 +78,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                 if ($location.path() == "/") {
                     getCurrentCpuValues().then(
                         function (data) {
-                            setCurrentCpuValue(data);
+                            setCurrentCpuValues(data);
                         }
                     );
                 }
