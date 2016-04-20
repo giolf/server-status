@@ -83,17 +83,21 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     );
                 }
                 else
-                    stop();
+                    stopLoop();
             };
 
-            var stop = function () {
+            var stopLoop = function () {
                 $interval.cancel(loopHandler);
             };
 
+            var startLoop = function (delay) {
+                loopHandler = $interval(cpuLoop, delay);
+            };
+
             // public method
-            $scope.init = function () {
+            $scope.init = function (delay) {
                 setupCpuChart();
-                loopHandler = $interval(cpuLoop, 3000);
+                startLoop(delay);
             };
         }
     ]);

@@ -1,4 +1,4 @@
-define(['chartJS', 'serverRequestsModule'], function(chart) {
+define(['chartJS', 'serverRequestsModule'], function (chart) {
     var ramChart = angular.module('ramChart', ['serverRequests']);
 
     ramChart.controller('ramController', [
@@ -14,7 +14,7 @@ define(['chartJS', 'serverRequestsModule'], function(chart) {
             $scope.percRAM = null;
 
             // private methods
-            var setupRamChart = function() {
+            var setupRamChart = function () {
                 var data = {
                     labels: [],
                     datasets: [{
@@ -62,8 +62,8 @@ define(['chartJS', 'serverRequestsModule'], function(chart) {
                 $scope.freeRAM = data[2] + " MB";
                 $scope.percRAM = data[3];
                 ramChart.addData(
-                    [$filter('number')(100/ data[0] * data[1], 1)],
-                    $filter('date')(new Date(),'HH:mm:ss')
+                    [$filter('number')(100 / data[0] * data[1], 1)],
+                    $filter('date')(new Date(), 'HH:mm:ss')
                 );
             };
 
@@ -76,17 +76,21 @@ define(['chartJS', 'serverRequestsModule'], function(chart) {
                     );
                 }
                 else
-                    stop();
+                    stopLoop();
             };
 
-            var stop = function () {
+            var stopLoop = function () {
                 $interval.cancel(loopHandler);
             };
 
+            var startLoop = function (delay) {
+                loopHandler = $interval(ramLoop, delay);
+            };
+
             // public method
-            $scope.init = function () {
+            $scope.init = function (delay) {
                 setupRamChart();
-                loopHandler = $interval(ramLoop, 3000);
+                startLoop(delay)
             };
         }
     ]);
