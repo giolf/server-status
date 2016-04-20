@@ -7,6 +7,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
             // private state
             var loopHandler = null;
             var cpuChart = null;
+            var hasCpuInfo = false;
 
             // public state
             $scope.model = null;
@@ -40,26 +41,6 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     scaleStartValue: 0
                 };
 
-                getCpuInfo().then(
-                    function (data) {
-                        var clockString = data[0].split(" @ ")[1];
-                        var clock = '';
-
-                        for (var i = 0; i < clockString.length; i++) {
-                            if (clockString.charAt(i) == 'G')
-                                clock += ' ' + clockString.charAt(i);
-                            else if (clockString.charAt(i) == 'M')
-                                clock += ' ' + clockString.charAt(i);
-                            else
-                                clock += clockString.charAt(i);
-                        }
-
-                        $scope.model = data[0].split(" @ ")[0];
-                        $scope.clock = clock;
-                        $scope.cores = data[1];
-                    }
-                );
-
                 var cpuCanvas = angular.element(
                     document.querySelector('#cpu-chart')
                 )[0].getContext("2d");
@@ -70,6 +51,24 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
 
             var getCpuInfo = function () {
                 return serverRequestsService.request("service=infoCPU");
+            }
+
+            var setCpuInfo = function (data) {
+                var clockString = data[0].split(" @ ")[1];
+                var clock = '';
+
+                for (var i = 0; i < clockString.length; i++) {
+                    if (clockString.charAt(i) == 'G')
+                        clock += ' ' + clockString.charAt(i);
+                    else if (clockString.charAt(i) == 'M')
+                        clock += ' ' + clockString.charAt(i);
+                    else
+                        clock += clockString.charAt(i);
+                }
+
+                $scope.model = data[0].split(" @ ")[0];
+                $scope.clock = clock;
+                $scope.cores = data[1];
             }
 
             var getCurrentCpuValues = function () {
@@ -94,6 +93,15 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                             setCurrentCpuValues(data);
                         }
                     );
+
+                    if (!hasCpuInfo) {
+                        getCpuInfo().then(
+                            function (data) {
+                                setCpuInfo(data)
+                                hasCpuInfo = true;
+                            }
+                        );
+                    }
                 }
                 else
                     stopLoop();
