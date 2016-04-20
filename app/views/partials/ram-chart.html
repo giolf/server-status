@@ -7,11 +7,15 @@
         <table class="table-serverstatus-chart table">
             <tbody>
                 <tr><th scope="row">Totale</th>
-                    <td class="text-right">{{ totalRAM }}</td>
+                    <td class="text-right">{{ total }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">Corrente</th>
-                    <td class="text-right">{{ currentRAM }}</td>
+                    <th scope="row">Utilizzati</th>
+                    <td class="text-right">{{ current }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Liberi</th>
+                    <td class="text-right">{{ free }}</td>
                 </tr>
             </tbody>
         </table>

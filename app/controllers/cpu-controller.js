@@ -9,8 +9,9 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
             var cpuChart = null;
 
             // public state
-            $scope.modelCPU = null;
-            $scope.numCores = null;
+            $scope.model = null;
+            $scope.cores = null;
+            $scope.clock = null;
 
             // private methods
             var setupCpuChart = function () {
@@ -41,8 +42,21 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
 
                 getCpuInfo().then(
                     function (data) {
-                        $scope.modelCPU = data[0];
-                        $scope.numCores = data[1];
+                        var clockString = data[0].split(" @ ")[1];
+                        var clock = '';
+
+                        for (var i = 0; i < clockString.length; i++) {
+                            if (clockString.charAt(i) == 'G')
+                                clock += ' ' + clockString.charAt(i);
+                            else if (clockString.charAt(i) == 'M')
+                                clock += ' ' + clockString.charAt(i);
+                            else
+                                clock += clockString.charAt(i);
+                        }
+
+                        $scope.model = data[0].split(" @ ")[0];
+                        $scope.clock = clock;
+                        $scope.cores = data[1];
                     }
                 );
 
@@ -54,9 +68,8 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                     .Line(data, options);
             };
 
-            var getCpuInfo = function() {
-                return serverRequestsService.
-                    request("service=infoCPU");
+            var getCpuInfo = function () {
+                return serverRequestsService.request("service=infoCPU");
             }
 
             var getCurrentCpuValues = function () {
@@ -70,7 +83,7 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
 
                 cpuChart.addData(
                     [data[0] + data[1] + data[2]],
-                    $filter('date')(new Date(),'HH:mm:ss')
+                    $filter('date')(new Date(), 'HH:mm:ss')
                 );
             };
 

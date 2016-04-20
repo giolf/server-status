@@ -8,10 +8,10 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
             var loopHandler = null;
 
             // public state
-            $scope.totalRAM = null;
-            $scope.currentRAM = null;
-            $scope.freeRAM = null;
-            $scope.percRAM = null;
+            $scope.total = null;
+            $scope.current = null;
+            $scope.free = null;
+            $scope.perc = null;
 
             // private methods
             var setupRamChart = function () {
@@ -57,10 +57,10 @@ define(['chartJS', 'serverRequestsModule'], function (chart) {
                 if (ramChart.datasets[0].points.length > 10)
                     ramChart.removeData();
 
-                $scope.totalRAM = data[0] + " MB";
-                $scope.currentRAM = data[1] + " MB";
-                $scope.freeRAM = data[2] + " MB";
-                $scope.percRAM = data[3];
+                $scope.total = $filter('number')(data[0] / 1000, 2) + " GB";
+                $scope.current = $filter('number')(data[1] / 1000, 2) + " GB";
+                $scope.free = $filter('number')(data[2] / 1000, 2) + " GB";
+                $scope.perc = data[3];
                 ramChart.addData(
                     [$filter('number')(100 / data[0] * data[1], 1)],
                     $filter('date')(new Date(), 'HH:mm:ss')
