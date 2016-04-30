@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "bebasneue";
+    src: url('../../app/resources/font/bebasneue-webfont.woff') format('woff');
+}
+
+
 .header {
     background-color: #222;
     border-color: #080808;
@@ -32,4 +38,19 @@
 
 .table-serverstatus-chart tbody tr:first-child {
     border-top:2px solid #ddd;
+}
+
+.logo-panda {
+    padding-top: 100px;
+}
+
+.text-logo-panda .message {
+    font-size: 24px;
+    font-family: "Open sans",sans-serif;
+}
+
+.text-logo-panda .title {
+    font-size: 80px;
+    line-height: 120%;
+    font-family: bebasneue;
 }
