@@ -11,8 +11,8 @@ module.exports = function (grunt) {
                     baseUrl: "./app/",
                     mainConfigFile: 'app/js/main.js',
                     name: 'js/main',
-                    out: "build/js/app.min.js",
-                    optimize: "none",
+                    out: "app/resources/build/js/app.min.js",
+                    optimize: "uglify2",
                     //inlineText: true,
                     findNestedDependencies: true,
                     paths: {
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         cssmin: {
             combine: {
                 files: {
-                    'build/css/app.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', 'app/resources/css/style.css']
+                    'app/resources/build/css/app.min.css': ['bower_components/bootstrap/dist/css/bootstrap.min.css', 'app/resources/css/style.css']
                 }
             }
 
