@@ -1,6 +1,6 @@
 @font-face {
     font-family: "bebasneue";
-    src: url('../../app/resources/font/bebasneue-webfont.woff') format('woff');
+    src: url('../../font/bebasneue-webfont.woff') format('woff');
 }
 
 
@@ -53,4 +53,9 @@
     font-size: 80px;
     line-height: 120%;
     font-family: bebasneue;
+}
+
+.text-logo-panda .sad-smile {
+    position: relative;
+    bottom: 8px;
 }
