@@ -11,7 +11,7 @@ require.config({
         angular: '../bower_components/angular/angular.min',
         ngRoute: '../app/resources/js/angular-route.min',
         jQuery: 'jquery/dist/jquery.min',
-        chartJS: '../bower_components/chartJS/Chart.min'
+        chartJS: '../bower_components/chartJS/Chart'
     },
 
     shim: {
