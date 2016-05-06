@@ -9,17 +9,17 @@ require.config({
         serverStatusModule: 'js/server-status',
         serverRequestsModule: 'services/server-requests',
         angular: '../bower_components/angular/angular.min',
-        ngRoute: '../app/resources/js/angular-route.min',
+        uiRoute: '../bower_components/angular-ui-router/release/angular-ui-router.min',
         jQuery: 'jquery/dist/jquery.min',
         chartJS: '../bower_components/chartJS/Chart'
     },
 
     shim: {
-        'ngRoute': {
+        'uiRoute': {
           deps: ['angular']
         },
         'appModule': {
-            deps: ['angular', 'ngRoute']
+            deps: ['angular', 'uiRoute']
         }
     }
 });

@@ -1,12 +1,16 @@
 define(['serverStatusModule'], function () {
-    var app = angular.module('app', ['ngRoute', 'serverStatus']);
+    var app = angular.module('app', ['ui.router', 'serverStatus']);
 
-    app.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'views/home.html'
+    app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+        $stateProvider.state('home', {
+            url: "/",
+            templateUrl: "views/home.html"
         });
-        $routeProvider.otherwise({
-            templateUrl: 'views/page-not-found.html'
+        $stateProvider.state('page-not-found', {
+            templateUrl: "views/page-not-found.html"
+        });
+        $urlRouterProvider.otherwise(function($injector){
+            $injector.get('$state').go('page-not-found');
         });
     }]);
 });
