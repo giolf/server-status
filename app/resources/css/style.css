@@ -16,6 +16,11 @@
     font-size: 18px;
 }
 
+.brand a, .brand a:hover {
+    color: #9d9d9d;
+    text-decoration: none;
+}
+
 .serverstatus-box {
     padding-top: 15px;
 }
