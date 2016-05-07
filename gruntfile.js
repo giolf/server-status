@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                     mainConfigFile: 'app/js/main.js',
                     name: 'js/main',
                     out: "app/resources/build/js/app.min.js",
-                    optimize: "uglify2",
+                    optimize: "none",
                     //inlineText: true,
                     findNestedDependencies: true,
                     paths: {

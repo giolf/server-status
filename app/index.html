@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <div ng-include src="'views/partials/header.html'"></div>
-    <div class="container-fluid" ui-view></div>
+    <div ui-view="header"></div>
+    <div ui-view="content" class="container-fluid"></div>
     <script src="resources/build/js/app.min.js"></script>
 </body>
 

@@ -4,13 +4,21 @@ define(['serverStatusModule'], function () {
     app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider.state('home', {
             url: "/",
-            templateUrl: "views/home.html"
+            views: {
+                "header": {templateUrl: "views/partials/header.html"},
+                "content": {templateUrl: "views/home.html"}
+            }
         });
-        $stateProvider.state('page-not-found', {
-            templateUrl: "views/page-not-found.html"
+
+        $stateProvider.state('404', {
+            views: {
+                "header": {templateUrl: "views/partials/header.html"},
+                "content": {templateUrl: "views/page-not-found.html"}
+            }
         });
+
         $urlRouterProvider.otherwise(function($injector){
-            $injector.get('$state').go('page-not-found');
+            $injector.get('$state').go('404');
         });
     }]);
 });
